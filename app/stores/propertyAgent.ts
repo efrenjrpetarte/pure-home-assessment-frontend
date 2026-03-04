@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import type { PropertyAgent } from '~/types/property-agent';
+import type { CreatePropertyAgentDto, PropertyAgent } from '~/types/property-agent';
 
 export const usePropertyAgentStore = defineStore('propertyAgent', () => {
   const api = useApi() // use Axios instance from composable
@@ -18,5 +18,22 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
     }
   }
 
-  return { agents, loading, fetchAgents }
+  const createAgent = async (payload: CreatePropertyAgentDto) => {
+    loading.value = true
+    try {
+      const res = await api.post('/property-agent', payload)
+
+      // Optional: push new agent to list
+      agents.value.push(res.data)
+
+      return res.data
+    } catch (err: any) {
+      err.value = err.message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { agents, loading, fetchAgents, createAgent }
 })

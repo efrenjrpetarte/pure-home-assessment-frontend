@@ -2,7 +2,7 @@
   <div class="container mx-auto p-6">
     <div class="flex mb-4">
         <h2 class="text-xl font-bold">Agents</h2>
-        <Button type="button" @click="openCreatePropertyAgentModal = true" variant="green">Add agent</Button>
+        <Button type="button" class="ml-auto" @click="openCreatePropertyAgentModal = true" variant="green">Add agent</Button>
     </div>
 
     <div class="overflow-x-auto">
@@ -13,6 +13,7 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Firstname</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Lastname</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Mobile #</th>
+            <th class="sr-only"></th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -21,6 +22,7 @@
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.firstName }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.lastName }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.mobileNumber }}</td>
+            <td class="px-4 py-2 text-sm text-gray-600">Edit | Delete</td>
           </tr>
         </tbody>
       </table>
