@@ -22,9 +22,7 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
     loading.value = true
     try {
       const res = await api.post('/property-agent', payload)
-
-      // Optional: push new agent to list
-      agents.value.push(res.data)
+      await fetchAgents()
 
       return res.data
     } catch (err: any) {
@@ -35,5 +33,18 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
     }
   }
 
-  return { agents, loading, fetchAgents, createAgent }
+  const deleteAgent = async (id: string) => {
+    loading.value = true
+    try {
+      await api.delete(`/property-agent/${id}`)
+      await fetchAgents()
+    } catch (err: any) {
+      err.value = err.message
+      throw err
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return { agents, loading, fetchAgents, createAgent, deleteAgent }
 })

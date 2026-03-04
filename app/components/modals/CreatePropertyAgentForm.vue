@@ -9,9 +9,9 @@
                 <Input id="mobileNumber" label="Mobile #" placeholder="Enter your mobile #" v-model="form.mobileNumber" required />
             </div>
             <div class="grid grid-cols-2 gap-3">
-                <Button type="button" variant="outline-red">Cancel</Button>
+                <Button type="button" @click="close"  variant="outline-red">Cancel</Button>
                 <Button type="submit" variant="blue">
-                    {{ propertyStore.loading ? 'Saving...' : 'Save' }}
+                    {{ propertyAgentStore.loading ? 'Saving...' : 'Save' }}
                 </Button>
             </div>
         </form>
@@ -26,7 +26,7 @@ const emit = defineEmits<{
   (e: 'close', value: boolean): void
 }>()
 
-const propertyStore = usePropertyAgentStore();
+const propertyAgentStore = usePropertyAgentStore();
 
 const form = ref({
     firstName: '',
@@ -41,7 +41,7 @@ const close = () => {
 
 const submit = async () => {
   try {
-    await propertyStore.createAgent(form.value)
+    await propertyAgentStore.createAgent(form.value)
 
     form.value = {
       firstName: '',
