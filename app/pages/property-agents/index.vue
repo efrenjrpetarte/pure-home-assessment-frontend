@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-          <tr v-for="property in propertyAgents" :key="property.id" class="hover:bg-gray-50">
+          <tr v-for="property in propertyAgentStore.agents" :key="property.id" class="hover:bg-gray-50">
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.id }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.firstName }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.lastName }}</td>
@@ -31,21 +31,12 @@
 </template>
 
 <script setup lang="ts">
-import type { PropertyAgent } from '~/types/property-agent';
+import { usePropertyAgentStore } from '~/stores/propertyAgent';
 
 const openCreatePropertyAgentModal = ref(false)
-const propertyAgents = ref<PropertyAgent[]>([])
-
-const api = useApi()
-
-const fetchPropertyAgents  = async () => {
-    const res = await api.get('/property-agent')
-
-    propertyAgents.value = res.data;
-    return res;
-}
+const propertyAgentStore = usePropertyAgentStore()
 
 onMounted(() => {
-  fetchPropertyAgents();
+  propertyAgentStore.fetchAgents();
 });
 </script>
