@@ -2,7 +2,7 @@
   <div class="container mx-auto p-6">
     <div class="flex mb-4">
         <h2 class="text-xl font-bold">Agents</h2>
-        <Button type="button" variant="green">Add agent</Button>
+        <Button type="button" @click="openCreatePropertyAgentModal = true" variant="green">Add agent</Button>
     </div>
 
     <div class="overflow-x-auto">
@@ -12,7 +12,7 @@
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">ID</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Firstname</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Lastname</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">mobileNumber</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Mobile #</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
@@ -25,20 +25,21 @@
         </tbody>
       </table>
     </div>
+
+    <ModalsCreatePropertyAgentForm :open="openCreatePropertyAgentModal" @close="openCreatePropertyAgentModal = false" />
   </div>
 </template>
 
 <script setup lang="ts">
-import api from '~/services/api';
 import type { PropertyAgent } from '~/types/property-agent';
 
+const openCreatePropertyAgentModal = ref(false)
 const propertyAgents = ref<PropertyAgent[]>([])
 
+const api = useApi()
+
 const fetchPropertyAgents  = async () => {
-    console.log('loading')
     const res = await api.get('/property-agent')
-    console.log('run')
-    console.log(res)
 
     propertyAgents.value = res.data;
     return res;

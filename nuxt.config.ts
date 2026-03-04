@@ -4,10 +4,14 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  devServer: {
-    port: 3333, // Local port
-  },
   css: ['@/assets/css/main.css'],
+  runtimeConfig: {
+    public: {
+      apiBackendUrl: process.env.NUXT_PUBLIC_API_BACKEND_API_URL,
+      apiBackendKey: process.env.NUXT_PUBLIC_BACKEND_API_KEY,
+      apiBackendPort: process.env.NUXT_PUBLIC_BACKEND_API_PORT
+    },
+  },
   vite: {
     plugins: [tailwindcss()],
   },
