@@ -11,7 +11,7 @@
             <div class="grid grid-cols-2 gap-3">
                 <Button type="button" @click="close"  variant="outline-red">Cancel</Button>
                 <Button type="submit" variant="blue">
-                    {{ propertyAgentStore.loading ? 'Saving...' : 'Save' }}
+                    {{ propertyAgentStore.loading ? 'Updating...' : 'Update' }}
                 </Button>
             </div>
         </form>
