@@ -4,8 +4,8 @@ export interface PropertyAgent {
   lastName: string;
   email: string;
   mobileNumber: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 // 👇 For creating

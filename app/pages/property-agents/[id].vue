@@ -21,7 +21,7 @@
         <tbody class="divide-y divide-gray-200">
           <tr v-for="property in propertyAgentStore.agents" :key="property.id" class="hover:bg-gray-50">
             <td class="px-4 py-2 text-sm text-gray-600">
-              <NuxtLink :to="`/property-agents/${property.id}`" class="text-blue-800">{{ property.id }}</NuxtLink>
+              <NuxtLink :to="`/property-agent/${property.id}`" class="text-blue-800">{{ property.id }}</NuxtLink>
             </td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.firstName }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.lastName }}</td>
@@ -54,6 +54,11 @@
 import { PencilIcon, TrashIcon } from '@heroicons/vue/16/solid';
 import { usePropertyAgentStore } from '~/stores/propertyAgent';
 import type { PropertyAgent } from '~/types/property-agent';
+
+
+const route = useRoute()
+const id = route.params.id
+
 
 const openCreatePropertyAgentModal = ref(false)
 const openDeletePropertyAgentModal = ref(false)
