@@ -5,7 +5,7 @@
             <div class="gap-3 grid py-5">
                 <Input id="firstName" label="Firstname" placeholder="Enter your firstname" v-model="form.firstName" required />
                 <Input id="lastName" label="Lastname" placeholder="Enter your lastname" v-model="form.lastName" required />
-                <Input id="email" label="Email" placeholder="Enter your email" v-model="form.email" required />
+                <Input id="email" type="email" label="Email" placeholder="Enter your email" v-model="form.email" required />
                 <Input id="mobileNumber" label="Mobile #" placeholder="Enter your mobile #" v-model="form.mobileNumber" required />
             </div>
             <div class="grid grid-cols-2 gap-3">
