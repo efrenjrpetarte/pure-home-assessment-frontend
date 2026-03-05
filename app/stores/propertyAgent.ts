@@ -33,6 +33,18 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
     }
   }
 
+  const fetchAgent = async (id: string) => {
+    loading.value = true
+    try {
+      const res = await api.get(`/property-agent/${id}`)
+      return res.data
+    } catch (err) {
+      console.error('Failed to fetch agent', err)
+    } finally {
+      loading.value = false
+    }
+  }
+
   const updateAgent = async (agent: PropertyAgent) => {
   loading.value = true
   try {
@@ -61,5 +73,5 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
     }
   }
 
-  return { agents, loading, fetchAgents, createAgent, updateAgent, deleteAgent }
+  return { agents, loading, fetchAgents, createAgent, fetchAgent, updateAgent, deleteAgent }
 })
