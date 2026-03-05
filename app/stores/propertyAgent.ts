@@ -1,10 +1,12 @@
 import { defineStore } from 'pinia'
+import type { Message } from '~/types/alert-message';
 import type { CreatePropertyAgentDto, PropertyAgent } from '~/types/property-agent';
 
 export const usePropertyAgentStore = defineStore('propertyAgent', () => {
   const api = useApi() // use Axios instance from composable
   const agents = ref<PropertyAgent[]>([])
   const loading = ref(false)
+  const errorMessage = ref<Message | null>(null)
 
   const fetchAgents = async () => {
     loading.value = true
@@ -61,17 +63,18 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
 }
 
   const deleteAgent = async (id: string) => {
+    errorMessage.value = null as Message | null
     loading.value = true
     try {
       await api.delete(`/property-agent/${id}`)
       await fetchAgents()
     } catch (err: any) {
-      err.value = err.message
-      throw err
+      errorMessage.value = err.response?.data 
+      return
     } finally {
       loading.value = false
     }
   }
 
-  return { agents, loading, fetchAgents, createAgent, fetchAgent, updateAgent, deleteAgent }
+  return { agents, loading, errorMessage, fetchAgents, createAgent, fetchAgent, updateAgent, deleteAgent }
 })

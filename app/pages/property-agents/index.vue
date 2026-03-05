@@ -47,6 +47,7 @@
       @close="openDeletePropertyAgentModal = false"  
       @submit="deletePropertyAgent"
     />
+    <ModalsAlert :open="openAlertModal" type="error" :message="propertyAgentStore.errorMessage" @close="openAlertModal = false" />
   </div>
 </template>
 
@@ -58,6 +59,7 @@ import type { PropertyAgent } from '~/types/property-agent';
 const openCreatePropertyAgentModal = ref(false)
 const openDeletePropertyAgentModal = ref(false)
 const openEditPropertyAgentModal = ref(false)
+const openAlertModal = ref(false)
 const selectedPropertyAgent = ref(<PropertyAgent>{})
 const propertyAgentStore = usePropertyAgentStore()
 const { formatDateTime } = useFormat()
@@ -73,12 +75,16 @@ const deletePropertyAgent = async () => {
 
     selectedPropertyAgent.value = {} as PropertyAgent
     openDeletePropertyAgentModal.value = false
+
+    if (propertyAgentStore.errorMessage) {
+      openAlertModal.value = true
+    }
   } catch (err) {
     console.error('Failed to delete agent')
   }
 }
 
-onMounted(() => {
-  propertyAgentStore.fetchAgents();
+onMounted( async () => {
+  await propertyAgentStore.fetchAgents();
 });
 </script>
