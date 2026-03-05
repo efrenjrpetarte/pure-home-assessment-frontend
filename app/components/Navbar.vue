@@ -31,7 +31,6 @@ const route = useRoute()
 const links = ref<NavLink[]>([
   { name: 'Agents', path: '/property-agents' },
   { name: 'Properties', path: '/properties' },
-  { name: 'Families', path: '/families' },
   { name: 'Tenant', path: '/tenants' },
   { name: 'Announcements', path: '/announcements' },
 ])

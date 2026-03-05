@@ -1,27 +1,27 @@
 import { defineStore } from 'pinia'
-import type { CreatePropertyDto, Property } from '~/types/property'
+import type { CreateFamilyDto, Family } from '~/types/family'
 
-export const usePropertyStore = defineStore('property', () => {
+export const useFamilyStore = defineStore('family', () => {
   const api = useApi()
-  const properties = ref<Property[]>([])
+  const families = ref<Family[]>([])
   const loading = ref(false)
 
   const fetchProperties = async () => {
     loading.value = true
     try {
-      const res = await api.get('/property')
-      properties.value = res.data
+      const res = await api.get('/family')
+      families.value = res.data
     } catch (err) {
-      console.error('Failed to fetch properties', err)
+      console.error('Failed to fetch families', err)
     } finally {
       loading.value = false
     }
   }
 
-  const createProperty = async (payload: CreatePropertyDto) => {
+  const createFamily = async (payload: CreateFamilyDto) => {
     loading.value = true
     try {
-      const res = await api.post('/property', payload)
+      const res = await api.post('/family', payload)
 
       return res.data
     } catch (err: any) {
@@ -32,10 +32,10 @@ export const usePropertyStore = defineStore('property', () => {
     }
   }
 
-  const updateProperty = async (property: Property) => {
+  const updateFamily = async (family: Family) => {
   loading.value = true
   try {
-    const res = await api.put(`/property/${property.id}`, property)
+    const res = await api.put(`/family/${family.id}`, family)
 
     return res.data
   } catch (err: any) {
@@ -46,10 +46,10 @@ export const usePropertyStore = defineStore('property', () => {
   }
 }
 
-  const deleteProperty = async (id: string) => {
+  const deleteFamily = async (id: string) => {
     loading.value = true
     try {
-      await api.delete(`/property/${id}`)
+      await api.delete(`/family/${id}`)
       await fetchProperties()
     } catch (err: any) {
       err.value = err.message
@@ -59,5 +59,5 @@ export const usePropertyStore = defineStore('property', () => {
     }
   }
 
-  return { properties, loading, fetchProperties, createProperty, updateProperty, deleteProperty }
+  return { families, loading, fetchProperties, createFamily, updateFamily, deleteFamily }
 })

@@ -1,3 +1,5 @@
+import type { Property } from "./property";
+
 export interface PropertyAgent {
   id: string;
   firstName: string;
@@ -6,6 +8,7 @@ export interface PropertyAgent {
   mobileNumber: string;
   createdAt: Date;
   updatedAt: Date;
+  properties: Property[]
 }
 
 // 👇 For creating

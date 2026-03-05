@@ -1,6 +1,11 @@
+import type { Family } from "./family"
+import type { PropertyAgent } from "./property-agent"
+
 export interface Property {
   id: string
   agentId: string
+  agent: PropertyAgent
+  family: Family
   name: string
   address: string
   createdAt: Date

@@ -10,7 +10,8 @@
           <tr>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">ID</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Agent name</th>
-            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Name</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Tenant name</th>
+            <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Property Name</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Address</th>
             <th class="px-4 py-2 text-left text-sm font-medium text-gray-700">Created</th>
             <th class="sr-only"></th>
@@ -19,7 +20,8 @@
         <tbody class="divide-y divide-gray-200">
           <tr v-for="property in propertyStore.properties" :key="property.id" class="hover:bg-gray-50">
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.id }}</td>
-            <td class="px-4 py-2 text-sm text-gray-600">{{ property.agentId }}</td>
+            <td class="px-4 py-2 text-sm text-gray-600">{{ property.agent?.firstName }} {{ property.agent?.lastName }}</td>
+            <td class="px-4 py-2 text-sm text-gray-600">{{ property.family?.name }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.name }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ property.address }}</td>
             <td class="px-4 py-2 text-sm text-gray-600">{{ formatDateTime(property.createdAt) }}</td>

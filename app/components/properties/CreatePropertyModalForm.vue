@@ -8,8 +8,9 @@
                     <div>Agent Name</div>
                     <span class="pl-2 font-semibold">{{ selectedAgent }}</span>
                 </div>
-                <Input id="name" label="Name" placeholder="Enter the name" v-model="form.name" required />
+                <Input id="name" label="Property Name" placeholder="Enter the property name" v-model="form.name" required />
                 <Input id="address" label="Address" placeholder="Enter the address" v-model="form.address" required />
+                <Input id="familyName" label="Tenant name" placeholder="Enter the tenant name" v-model="formFamily.name" />
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <Button type="button" @click="close"  variant="outline-red">Cancel</Button>
@@ -34,11 +35,17 @@ const emit = defineEmits<{
 }>()
 
 const propertyStore = usePropertyStore();
+const familyStore = useFamilyStore();
 
 const form = ref({
     agentId: '',
     name: '',
     address: '',
+})
+
+const formFamily = ref({
+    propertyId: '',
+    name: ''
 })
 
 const close = () => {
@@ -52,13 +59,20 @@ const selectedAgent = computed(() => {
 const submit = async () => {
     if (props.agentId) form.value.agentId = props.agentId
     try {
-        await propertyStore.createProperty(form.value)
+        const res = await propertyStore.createProperty(form.value)
+
+        if (res && formFamily.value.name !== '') {
+            formFamily.value.propertyId = res.id
+            await familyStore.createFamily(formFamily.value)
+        }
 
         form.value = {
             agentId: '',
             name: '',
             address: '',
         }
+
+        await propertyStore.fetchProperties()
 
         close()
     } catch (err) {

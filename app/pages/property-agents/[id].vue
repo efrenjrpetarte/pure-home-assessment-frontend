@@ -6,7 +6,7 @@
         <div>Contact Number: <span class="font-semibold">{{ selectedPropertyAgent.mobileNumber }}</span></div>
         <div>Date created: <span class="font-semibold">{{ formatDateTime(selectedPropertyAgent.createdAt) }}</span></div>
     </div>
-    <PropertiesTable :agentId="agentId" />
+    <!-- <PropertiesTable :agentId="agentId" /> -->
 
   </div>
 </template>
