@@ -18,3 +18,10 @@ export interface CreatePropertyAgentDto {
   email: string
   mobileNumber: string
 }
+
+export interface FieldErrorMessage {
+  firstName: string
+  lastName: string
+  email: string
+  mobileNumber: string
+}

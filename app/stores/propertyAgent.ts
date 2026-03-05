@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import type { Message } from '~/types/alert-message';
-import type { CreatePropertyAgentDto, PropertyAgent } from '~/types/property-agent';
+import type { CreatePropertyAgentDto, FieldErrorMessage, PropertyAgent } from '~/types/property-agent';
 
 export const usePropertyAgentStore = defineStore('propertyAgent', () => {
   const api = useApi() // use Axios instance from composable
   const agents = ref<PropertyAgent[]>([])
   const loading = ref(false)
   const errorMessage = ref<Message | null>(null)
+  const fieldErrors = ref<FieldErrorMessage | null>(null)
 
   const fetchAgents = async () => {
     loading.value = true
@@ -21,6 +22,7 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
   }
 
   const createAgent = async (payload: CreatePropertyAgentDto) => {
+    fieldErrors.value = null as FieldErrorMessage | null
     loading.value = true
     try {
       await api.post('/property-agent', payload)
@@ -28,7 +30,7 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
 
       return true
     } catch (err: any) {
-      err.value = err.message
+      fieldErrors.value = err.response?.data?.errors
       throw err
     } finally {
       loading.value = false
@@ -48,19 +50,20 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
   }
 
   const updateAgent = async (agent: PropertyAgent) => {
-  loading.value = true
-  try {
-    await api.put(`/property-agent/${agent.id}`, agent)
-    await fetchAgents()
+    fieldErrors.value = null as FieldErrorMessage | null
+    loading.value = true
+    try {
+      await api.put(`/property-agent/${agent.id}`, agent)
+      await fetchAgents()
 
-    return true
-  } catch (err: any) {
-    err.value = err.message
-    throw err
-  } finally {
-    loading.value = false
+      return true
+    } catch (err: any) {
+      fieldErrors.value = err.response?.data?.errors
+      throw err
+    } finally {
+      loading.value = false
+    }
   }
-}
 
   const deleteAgent = async (id: string) => {
     errorMessage.value = null as Message | null
@@ -76,5 +79,5 @@ export const usePropertyAgentStore = defineStore('propertyAgent', () => {
     }
   }
 
-  return { agents, loading, errorMessage, fetchAgents, createAgent, fetchAgent, updateAgent, deleteAgent }
+  return { agents, loading, errorMessage, fieldErrors, fetchAgents, createAgent, fetchAgent, updateAgent, deleteAgent }
 })

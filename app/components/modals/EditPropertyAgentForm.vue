@@ -3,10 +3,10 @@
         <form @submit.prevent="submit">
             <div class="border-b pb-5 border-gray-300">Edit Property Agent</div>
             <div class="gap-3 grid py-5">
-                <Input id="firstName" label="Firstname" placeholder="Enter your firstname" v-model="form.firstName" required />
-                <Input id="lastName" label="Lastname" placeholder="Enter your lastname" v-model="form.lastName" required />
-                <Input id="email" type="email" label="Email" placeholder="Enter your email" v-model="form.email" required />
-                <Input id="mobileNumber" label="Mobile #" placeholder="Enter your mobile #" v-model="form.mobileNumber" required />
+                <Input id="firstName" label="Firstname" placeholder="Enter your firstname" v-model="form.firstName" required :error="propertyAgentStore.fieldErrors?.firstName" />
+                <Input id="lastName" label="Lastname" placeholder="Enter your lastname" v-model="form.lastName" required :error="propertyAgentStore.fieldErrors?.lastName" />
+                <Input id="email" type="email" label="Email" placeholder="Enter your email" v-model="form.email" required :error="propertyAgentStore.fieldErrors?.email" />
+                <Input id="mobileNumber" label="Mobile #" placeholder="Enter your mobile #" v-model="form.mobileNumber" required :error="propertyAgentStore.fieldErrors?.mobileNumber" />
             </div>
             <div class="grid grid-cols-2 gap-3">
                 <Button type="button" @click="close"  variant="outline-red">Cancel</Button>
