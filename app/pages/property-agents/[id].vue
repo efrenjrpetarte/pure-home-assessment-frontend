@@ -6,7 +6,15 @@
         <div>Contact Number: <span class="font-semibold">{{ selectedPropertyAgent.mobileNumber }}</span></div>
         <div>Date created: <span class="font-semibold">{{ formatDateTime(selectedPropertyAgent.createdAt) }}</span></div>
     </div>
-    <!-- <PropertiesTable :agentId="agentId" /> -->
+    <div class="font-semibold text-2xl pt-3 pb-5">Properties</div>
+    <div class="grid grid-cols-4 gap-5">
+      <template v-for="property in selectedPropertyAgent.properties">
+        <div class=" border border-gray-400 rounded shadow-xl p-3 bg-gray-200">
+          <div class="font-semibold text-center">{{ property.name }}</div>
+          <div class="text-sm text-center">{{ property.address }}</div>
+        </div>
+      </template>
+    </div>
 
   </div>
 </template>
